@@ -56,7 +56,7 @@ task RunDemuxEM {
     }
 
     command <<<
-        pip install --upgrade demuxEM
+	pip install --upgrade demuxEM
 	demuxEM ~{inRNA} ~{crispCSV} output
     >>>
 
