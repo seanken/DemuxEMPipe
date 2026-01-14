@@ -42,7 +42,7 @@ task GetCrisprCSV {
     }
 
     runtime {
-        docker: "quay.io/cumulus:latest"
+        docker: "quay.io/cumulus"
         zones: "us-central1-b"
         memory: "90G"
         disks: "local-disk 100 HDD"
@@ -64,7 +64,7 @@ task RunDemuxEM {
     }
 
     runtime {
-        docker: "quay.io/cumulus:latest"
+        docker: "quay.io/cumulus"
         zones: "us-central1-b"
         memory: "90G"
         disks: "local-disk 100 HDD"
@@ -86,7 +86,7 @@ task CleanDeMuxOutput {
     }
 
     runtime {
-        docker: "quay.io/cumulus:latest"
+        docker: "quay.io/cumulus"
         zones: "us-central1-b"
         memory: "90G"
         disks: "local-disk 100 HDD"
