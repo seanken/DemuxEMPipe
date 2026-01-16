@@ -69,7 +69,7 @@ task CleanInput {
     >>>
 
     output {
-        File cleaned_h5 = "cleaned.h5"
+        File cleaned_h5 = "cleanData.h5"
     }
 
     runtime {
