@@ -4,6 +4,7 @@ workflow Demux {
     input {
         String inDir
         File inRNA = inDir + "/raw_feature_bc_matrix.h5"
+        Boolean runCleanInput = false
     }
 
     call GetCrisprCSV {
@@ -11,9 +12,16 @@ workflow Demux {
             inRNA = inRNA
     }
 
+    if (runCleanInput) {
+        call CleanInput {
+            input:
+                inRNA = inRNA
+        }
+    }
+
     call RunDemuxEM {
         input:
-            inRNA = inRNA,
+            inRNA = select_first([CleanInput.cleaned_h5, inRNA]),
             crispCSV = GetCrisprCSV.crispCSV
     }
 
@@ -39,6 +47,28 @@ task GetCrisprCSV {
 
     output {
         File crispCSV = "Crisp.csv"
+    }
+
+    runtime {
+        docker: "cumulusprod/cumulus:1.0.0"
+        zones: "us-central1-b"
+        memory: "90G"
+        disks: "local-disk 100 HDD"
+    }
+}
+
+task CleanInput {
+    input {
+        File inRNA
+    }
+
+    command <<<
+        gsutil cp gs://fc-secure-b42fb9b0-04ed-4260-9c28-aa1274233114/Scripts/CovertH5.py .
+        python CovertH5.py ~{inRNA} cleaned.h5
+    >>>
+
+    output {
+        File cleaned_h5 = "cleaned.h5"
     }
 
     runtime {
