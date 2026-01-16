@@ -72,7 +72,7 @@ task CleanInput {
     }
 
     runtime {
-        docker: "cumulusprod/cumulus:1.0.0"
+        docker: "cumulusprod/cumulus:1.4.3"
         zones: "us-central1-b"
         memory: "90G"
         disks: "local-disk 100 HDD"
