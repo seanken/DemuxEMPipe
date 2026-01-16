@@ -64,6 +64,7 @@ task CleanInput {
 
     command <<<
         gsutil cp gs://fc-secure-b42fb9b0-04ed-4260-9c28-aa1274233114/Scripts/CovertH5.py .
+        pip install --upgrade pegasusio
         python CovertH5.py ~{inRNA} cleaned.h5
     >>>
 
